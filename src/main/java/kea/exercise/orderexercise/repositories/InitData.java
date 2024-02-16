@@ -1,7 +1,7 @@
 package kea.exercise.orderexercise.repositories;
 
+import kea.exercise.orderexercise.models.OrderLine;
 import kea.exercise.orderexercise.models.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 public class InitData implements CommandLineRunner {
 
     private ProductRepository productRepository;
+    private OrderLineRepository orderLineRepository;
 
-    public InitData(ProductRepository productRepository) {
+    public InitData(ProductRepository productRepository, OrderLineRepository orderLineRepository) {
         this.productRepository = productRepository;
+        this.orderLineRepository = orderLineRepository;
     }
 
     public void run(String... args){
@@ -38,6 +40,17 @@ public class InitData implements CommandLineRunner {
         productRepository.save(product1);
         productRepository.save(product2);
         productRepository.save(product3);
+
+        OrderLine line1 = new OrderLine();
+        line1.setProduct(product1);
+        line1.setQuantity(2);
+        orderLineRepository.save(line1);
+
+        OrderLine line2 = new OrderLine();
+        line2.setProduct(product1);
+        line2.setQuantity(7);
+        orderLineRepository.save(line2);
     }
+
 
 }
