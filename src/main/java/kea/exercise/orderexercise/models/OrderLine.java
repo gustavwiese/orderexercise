@@ -1,5 +1,7 @@
 package kea.exercise.orderexercise.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,8 +10,26 @@ public class OrderLine {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private Product product;
     private int quantity;
+
+    public OrderLine(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public OrderLine() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Product getProduct() {
         return product;
